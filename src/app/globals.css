@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: auto !important;
+  padding-right: 0px !important;
+}
+.circle-image {
+  width: 8rem;
+  height: 8rem;
+  object-fit: cover;
+  border: none;
+  border-radius: 100%;
+}
+.react-switch-handle {
+  /* border: 1px solid #b53689 !important; */
+  height: 14px !important;
+  width: 14px !important;
+  top: 4px !important;
+  left: 2px !important;
+}
+
+.react-switch-bg {
+  height: 22px !important;
+  width: 48px !important;
+}
+.ant-table-pagination {
+  display: none !important;
+}
+
+.ant-card-bordered {
+  height: 100% !important;
+}
+
+.border-unswitch {
+  border: 1px solid #c2c2c2 !important;
+}
+/* 
+.nextjs-static-indicator-toast-icon{
+  display: none !important;
+} */
+
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.ant-modal-content{
+  padding: 40px 60px !important;
+  border-radius: 1.5rem !important;
+}
+
+.my-own-moodal .ant-modal-content{
+  padding: 0px !important;
+  border-radius: 1.5rem !important;
+}
+.my-own-moodal .ant-modal-header{
+  background-color: #171717 !important;
+  color: #ffffff !important;
+  border-radius: 1.5rem 1.5rem 0rem 0rem !important;
+}
+.my-own-moodal .ant-modal-title{
+  /* background-color: #171717 !important; */
+  color: #ffffff !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  line-height: 34.66px !important;
+  padding: 1rem !important;
+}
+
+.my-own-moodal .ant-modal-close{
+  background-color: #171717 !important;
+  inset-inline-end: 20px !important;
+  /* top: 16px !important; */
+  color: #ffffff !important;
+}
+
+.my-own-moodal .ant-modal-footer{
+  display: flex !important;
+  justify-content: center !important;
+}
+
+
+.my-own-moodal .ant-modal-body{
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.ant-modal-body{
+  font-size: 20px !important;
+  text-align: center !important;
+  font-weight: 400 !important;
+}
+
+.my-textarea{
+  font-size: 16px !important;
+  resize: none;
+}
+
+.color-class{
+  color: #2a3573 !important;
+  font-weight: bold !important;
+}
+
+.ant-modal-title{
+  /* font-family: Gilroy-Bold; */
+font-size: 28px !important;
+font-weight: 700 !important;
+line-height: 34.66px !important;
+}
+
+.ant-modal-close{
+  background-color: #e0e0e0 !important;
+  inset-inline-end: 20px !important;
+  top: 16px !important;
+}
+.ant-menu-item{
+  padding-inline: 30px !important;
+  margin-inline: 0px !important;
+}
+
+

@@ -1,0 +1,6 @@
+.basicModal .ant-modal-header{
+text-align: center;
+}
+.commentModalBody .commentModalSubmit{
+    margin-top: 25px;
+}

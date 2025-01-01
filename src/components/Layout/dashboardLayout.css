@@ -1,0 +1,16 @@
+
+
+/* .ant-menu-light .ant-menu-item-selected{
+  background-color: green !important;
+  color: white !important;
+   */
+/* } */
+
+
+@media (max-width:1000px){
+  .ant-layout .site-layout{
+    margin-left: 60px !important;
+  }
+}
+
+/*# sourceMappingURL=styles.css.map */
