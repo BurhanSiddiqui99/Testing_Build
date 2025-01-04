@@ -7,7 +7,6 @@ import Colors from "../../../../config/colors";
 import InputOtp from "../../../../components/Otp";
 import Link from "next/link";
 import { redirect } from 'next/navigation'
-import showMessage from "../../../../components/Utils/index"
 export default function OTPAuth() {
     const { Title, Paragraph } = Typography;
     const [otp, setOtp] = useState("");
