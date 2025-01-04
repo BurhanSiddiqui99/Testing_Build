@@ -102,22 +102,6 @@ input::-webkit-inner-spin-button {
   justify-content: center !important;
 }
 
-.ant-modal-body{
-  font-size: 20px !important;
-  text-align: center !important;
-  font-weight: 400 !important;
-}
-
-.my-textarea{
-  font-size: 16px !important;
-  resize: none;
-}
-
-.color-class{
-  color: #2a3573 !important;
-  font-weight: bold !important;
-}
-
 .ant-modal-title{
   /* font-family: Gilroy-Bold; */
 font-size: 28px !important;

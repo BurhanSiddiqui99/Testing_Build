@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Layout, Menu, ConfigProvider } from 'antd';
+import { Layout, Menu, ConfigProvider, Image } from 'antd';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import Image from 'next/image';
+// import Image from 'next/image';
 import BasicModal from '../../components/Modal/BasicModal'; // Update path based on your Next.js structure
 import { sidebarLogo, Logo } from '../../assets/images';
 
@@ -34,7 +34,7 @@ const SideBar = () => {
     const menuItems = [
         {
             key: "1",
-            label: <Link href="/admin/dashboard">Dashboard</Link>,
+            label: <Link href="/admin/dashboard" className='text-base font-normal'>Dashboard</Link>,
             icon: <IoMdHome size={20} color={currentLocation === '/admin/dashboard' ? Colors.sidebarActiveColor : Colors.nonActiveColor} />,
             style: {
                 color: currentLocation === '/admin/dashboard' ? Colors.sidebarActiveColor : Colors.nonActiveColor,
@@ -45,7 +45,7 @@ const SideBar = () => {
         },
         {
             key: "2",
-            label: <Link href="/admin/user">Users Management</Link>,
+            label: <Link href="/admin/user">User Management</Link>,
             icon: <FaUser size={20} color={currentLocation === '/admin/user' ? Colors.sidebarActiveColor : Colors.nonActiveColor} />,
             style: {
                 color: currentLocation === '/admin/user' ? Colors.sidebarActiveColor : Colors.nonActiveColor,
@@ -101,13 +101,13 @@ const SideBar = () => {
                     <>
                     {collapsed ? (
                                 <Link href="/admin/dashboard">
-                                    {/* <Image className='w-14 h-14 mt-4 ml-4' src={Logo.src} alt="icon" width={56} height={56} /> */}
-                                    <img className='mt-12 w-full h-11 px-4 mb-8' src={Logo.src} alt="icon"/>
+                                    <Image preview={false} className='mt-12 px-4 mb-8' src={Logo.src} alt="logo" />
+                                    {/* <img className='mt-12 w-full h-11 px-4 mb-8' src={Logo.src} alt="icon"/> */}
                                 </Link>
                             ) : (
                                 <Link href="/admin/dashboard">
-                                    {/* <Image className='mt-12 w-full h-11 px-4 mb-8' src={sidebarLogo.src} alt="logo" width={200} height={44} /> */}
-                                    <img className='mt-12 w-full h-11 px-4 mb-8' src={sidebarLogo.src} alt="logo"/>
+                                    <Image preview={false} className='mt-12 px-4 mb-8' src={sidebarLogo.src} alt="logo" />
+                                    {/* <img className='mt-12 w-full h-11 px-4 mb-8' src={sidebarLogo.src} alt="logo"/> */}
                                 </Link>
                             )}
                     

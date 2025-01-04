@@ -70,7 +70,7 @@ export default function EditProfile() {
                   />
                   {imageURL ? (
                     <div className="relative">
-                      <Image
+                      <Image preview={false}
                         src={imageURL}
                         alt="Uploaded"
                         className="circle-image relative"
@@ -85,7 +85,7 @@ export default function EditProfile() {
                     </div>
                   ) : (
                     <div className="cursor-pointer">
-                      <Image alt="Profile" src={editProfile.src} width={110} height={110} />
+                      <Image preview={false} alt="Profile" src={editProfile.src} width={110} height={110} />
                     </div>
                   )}
                 </label>
@@ -136,9 +136,10 @@ export default function EditProfile() {
                         <input
                           required
                           type={"email"}
-                          defaultValue={""}
-                          className="mt-2 w-full px-2 py-3 rounded-lg outline-0 bg-[#fafafa] border border-[#c9c9c9]"
-                          {...field}
+                          value={"johndoe@gmail.com"}
+                          disabled
+                          className="mt-2 w-full px-2 py-3 rounded-lg outline-0 bg-[#fafafa] border border-[#c9c9c9] text-[#c9c9c9]"
+                          // {...field}
                         />
                     )}
                   />

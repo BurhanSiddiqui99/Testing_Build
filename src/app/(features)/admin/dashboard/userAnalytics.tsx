@@ -21,6 +21,10 @@ const data = [
   { month: "Jun", android: 100, ios: 42 },
   { month: "Jul", android: 58, ios: 48 },
   { month: "Aug", android: 45, ios: 60 },
+  { month: "Sep", android: 45, ios: 60 },
+  { month: "Oct", android: 45, ios: 60 },
+  { month: "Nov", android: 45, ios: 60 },
+  { month: "Dec", android: 45, ios: 60 },
 ];
 
 // eslint-disable-next-line
@@ -53,13 +57,11 @@ const UserAnalytics: React.FC = () => {
     >
       <div
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
           marginBottom: 20,
         }}
+        className="md:flex block justify-between items-center"
       >
-        <Title level={4}>Apple And Google Users</Title>
+        <span style={{ fontSize: '18px', fontWeight: 'bold' }}>Apple And Google Users</span>
         <Space>
           <span>
             <span

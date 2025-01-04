@@ -6,11 +6,12 @@ import Colors from "../../../../../config/colors";
 import {yupResolver} from '@hookform/resolvers/yup';
 import Link from "next/link";
 import DashboardLayout from '../../../../../components/Layout/dashboardLayout';
-
+import {data} from "../data"; 
 // import SideBar from '../../../../components/Layout/SideBar'
 const { Title, Paragraph } = Typography;
 export default function userDetails({params}: any) {
   console.log({params})
+  console.log(data,"DAtttttttttttt")
   // const router = useRouter();
   // const [logoutModal, setLogoutModal] = useState(false);
 //   const logoutModalViewer = () => {
@@ -105,7 +106,7 @@ const logOut = () => {
         </Col>
        </Row>
        <div>
-        <p className="font-semibold text-base mt-5">Chidlrens Profiles</p>
+        <p className="font-semibold text-base mt-5">Childrens Profiles</p>
         </div>
         <Row gutter={16}>
           <Col xxl={7} xl={7} lg={8} md={8} sm={11} xs={24} className="bg-[#f2f2f2] p-2 rounded-lg flex items-center justify-center mr-4 xs:mr-0 mb-4 xs:mb-0">
@@ -152,10 +153,11 @@ const logOut = () => {
 }
 
 
+
 export async function generateStaticParams() {
-  const users = [{id: "1011"}]
- 
-  return users.map((post) => ({
-    id: post.id,
+  // const users = [{id: "1011"}]
+  
+  return data?.map((post) => ({
+    id: post.id.toString(),
   }))
 }

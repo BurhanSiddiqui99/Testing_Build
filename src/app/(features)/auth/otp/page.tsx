@@ -7,9 +7,24 @@ import Colors from "../../../../config/colors";
 import InputOtp from "../../../../components/Otp";
 import Link from "next/link";
 import { redirect } from 'next/navigation'
+import showMessage from "../../../../components/Utils/index"
 export default function OTPAuth() {
     const { Title, Paragraph } = Typography;
     const [otp, setOtp] = useState("");
+    const [timer, setTimer] = useState(60); // Start timer at 60 seconds
+    const [showResend, setShowResend] = useState(false);
+
+    useEffect(() => {
+      if (timer > 0) {
+        const interval = setInterval(() => {
+          setTimer((prev) => prev - 1);
+        }, 1000);
+        return () => clearInterval(interval); // Clean up the interval on unmount
+      } else {
+        setShowResend(true);
+      }
+    }, [timer]);
+
     const { handleSubmit, control, formState: { errors } } = useForm({
         mode: 'onChange'
     });
@@ -19,6 +34,13 @@ export default function OTPAuth() {
       }
       
   }
+
+  const sendOtp = () => {
+    console.log('Resend OTP triggered');
+    // Logic to resend OTP
+    setTimer(60);
+    setShowResend(false);
+  };
   return (
     <Row className="h-screen">
       <Col xxl={12} xl={12} lg={12} md={24} sm={24} xs={24}>
@@ -66,7 +88,9 @@ export default function OTPAuth() {
 
 
                     <Row className="flex justify-center w-full">
-                    <p>Didn't receive the code? <span className="cursor-pointer text-[#ed1a72]" > Resend</span></p>
+                      {showResend ? (
+                      <p>Didn't receive the code? <Link href="/auth/otp"><span className="cursor-pointer text-[#ed1a72]" onClick={sendOtp}> Resend</span></Link></p>
+                    ) : (<span className="text-gray-500">Please wait {timer}s</span>)}
                     </Row>
             </div>
           </Card>

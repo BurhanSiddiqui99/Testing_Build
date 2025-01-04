@@ -15,6 +15,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import { passwordVerification } from "../../../../config/Schema/Schema";
 import { redirect } from "next/navigation";
+import { FaLock } from "react-icons/fa";
 interface PasswordFieldState {
   passwordField1: boolean;
   passwordField2: boolean;
@@ -76,7 +77,7 @@ export default function passwordChange() {
                     <Col span={24} className="relative mb-2">
                       <Input
                         required type={showPassword?.passwordField1 ? "text" : "password"}
-                        prefix={<Image alt="lock" src={lock.src} className="mr-3" preview={false} width={20} height={20}/>}
+                        prefix={<FaLock style={{ color: '#c9c9c9', fontSize: '20px' }} className="mr-3" />}
                         suffix={
                             <Image alt="Password" preview={false}
                             className=" h-4 w-4 cursor-pointer"
@@ -111,7 +112,7 @@ export default function passwordChange() {
                     <Col span={24} className="relative">
                       <Input
                         required type={showPassword?.passwordField2 ? "text" : "password"}
-                        prefix={<Image alt="lock" src={lock.src} className="mr-3" preview={false} width={20} height={20}/>}
+                        prefix={<FaLock style={{ color: '#c9c9c9', fontSize: '20px' }} className="mr-3" />}
                         suffix={
                             <Image alt="Password" preview={false}
                             className="h-4 w-4 cursor-pointer"

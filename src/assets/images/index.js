@@ -20,7 +20,8 @@ import child1 from './child1.png'
 import ageImage from './ageImage.png'
 import completeQuiz from './completeQuiz.png'
 import Polygon from './Polygon.png'
+import SearchIcon from './SearchIcon.png'
 
 export { background, main, Logo, passwordseen, passwordViewer, lock, sidebarLogo, totalEarningDashboard, backButton,
     totalUsersDashboard, feedbackImage, editProfile, deleteImage, viewUserProfile, deleteTableItem,userImage,
-    userDetail, activeUser, child1, ageImage, completeQuiz, Polygon };
+    userDetail, activeUser, child1, ageImage, completeQuiz, Polygon, SearchIcon };

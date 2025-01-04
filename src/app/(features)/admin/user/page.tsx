@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Col, Row, Image, Tooltip, TableProps, } from "antd";
-import { deleteTableItem, userImage, viewUserProfile } from "../../../../assets/images";
+import { Col, Row, Image, Tooltip, TableProps, Input, } from "antd";
+import { deleteTableItem, SearchIcon, userImage, viewUserProfile } from "../../../../assets/images";
 import { useForm, Controller } from "react-hook-form";
 import Colors from "../../../../config/colors";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,16 +14,19 @@ import Toggle from '../../../../components/Toggle/Toggle'
 import { FaAngleDown, FaAngleUp, FaGreaterThan, FaLessThan, FaLock, FaUser  } from "react-icons/fa";
 import BasicModal from "./BasicModal";
 import { redirect } from 'next/navigation'
+import { data } from "./data";
+interface TableColumnsPropType {
+  key: string;
+  id: number;
+  fullName: string;
+  email: string;
+  profilesCreated: number;
+  image: string;
+  status: string;
+}
+
 export default function UserManagement() {
-  interface TableColumnsPropType {
-    key: string;
-    id: number;
-    fullName: string;
-    email: string;
-    profilesCreated: number;
-    image: string;
-    status: string;
-  }
+  
   const validationSchema = userLogin;
   const {
     handleSubmit,
@@ -36,6 +39,7 @@ export default function UserManagement() {
 
   const [showHide, setShowHide] = useState('none');
   const [deleteUserModal, setDeleteUserModal] = useState(false);
+  const [userValue, setUserValue] = useState(false);
   const [deactivateUserModal, setDeactivateUserModal] = useState(false);
   const deleteUserModalViewer = () => {
     setDeleteUserModal(true);
@@ -49,6 +53,7 @@ const logOut = () => {
 
 // eslint-disable-next-line
   const SwitchChanger = (id: any, value: any) => {
+    setUserValue(value);
     setDeactivateUserModal(true);
     }
   
@@ -75,13 +80,13 @@ const logOut = () => {
 
           record?.fullName?.length > 12 ?
             <Col lg={24} className='flex  items-center  sm:justify-start cursor-pointer' >
-              {record?.image ? <Image alt="UserImage" src={record?.image}  /> : <Image alt="UserImage" src={userImage.src}/>}
+              {record?.image ? <Image alt="UserImage" src={record?.image} preview={false} /> : <Image alt="UserImage" src={userImage.src} preview={false}/>}
               <Tooltip placement="bottom" title={record?.fullName}>
                 <span className='pl-3' >{record?.fullName?.slice(0, 13) + '...'}</span>
               </Tooltip>
             </Col> :
             <Col lg={24} className='flex items-center  sm:justify-start cursor-pointer'>
-              {record?.image ? <Image alt="UserImage" src={record?.image}  /> : <Image alt="UserImage" src={userImage.src}/>}
+              {record?.image ? <Image alt="UserImage" src={record?.image}  preview={false}/> : <Image alt="UserImage" src={userImage.src} preview={false}/>}
               <span className='pl-3' >{record?.fullName}</span>
             </Col>
 
@@ -166,116 +171,7 @@ const logOut = () => {
 
   ];
 
-  const data:TableColumnsPropType[] = [
-    {
-      key:'1',
-      id: 1011,
-      fullName: 'Ahmed',
-      email: 'octaviajohn@gmail.com',
-      profilesCreated: 2,
-      image: '',
-      status: 'Active'
-    },
-    {
-      key:'2',
-      id: 1012,
-      fullName: 'Ahmed',
-      email: 'octaviajohn@gmail.com',
-      profilesCreated: 2,
-      image: '',
-      status: 'Active'
-    },
-    {
-      key:'3',
-      id: 1013,
-      fullName: 'Ahmed',
-     email: 'octaviajohn@gmail.com',
-      profilesCreated: 2,
-      image: '',
-      status: 'Active'
-    },
-    {
-      key:'4',
-      id: 1014,
-      fullName: 'Ahmed',
-     email: 'octaviajohn@gmail.com',
-      profilesCreated: 2,
-      image: '',
-      status: 'Active'
-    },
-    {
-      key:'5',
-      id: 1015,
-      fullName: 'Ahmed',
-     email: 'octaviajohn@gmail.com',
-      profilesCreated: 2,
-      image: '',
-      status: 'In-Active'
-    },
-    {
-      key:'6',
-      id: 1016,
-      fullName: 'Ahmed',
-     email: 'octaviajohn@gmail.com',
-      profilesCreated: 2,
-      image: '',
-      status: 'Active'
-    },
-    {
-      key:'7',
-      id: 1071,
-      fullName: 'Ahmed',
-     email: 'octaviajohn@gmail.com',
-      profilesCreated: 2,
-      image: '',
-      status: 'Active'
-    },
-    {
-      key:'8',
-      id: 1018,
-      fullName: 'Ahmed',
-     email: 'octaviajohn@gmail.com',
-      profilesCreated: 2,
-      image: '',
-      status: 'Active'
-    },
-    {
-      key:'9',
-      id: 1019,
-      fullName: 'Ahmed',
-     email: 'octaviajohn@gmail.com',
-      profilesCreated: 2,
-      image: '',
-      status: 'Active'
-    },
-    {
-      key:'10',
-      id: 1010,
-      fullName: 'Ahmed',
-     email: 'octaviajohn@gmail.com',
-      profilesCreated: 2,
-      image: '',
-      status: 'Active'
-    },
-    {
-      key:'11',
-      id: 10111,
-      fullName: 'Ahmed',
-     email: 'octaviajohn@gmail.com',
-      profilesCreated: 2,
-      image: '',
-      status: 'Active'
-    },
-    {
-      key:'12',
-      id: 10112,
-      fullName: 'Ahmed',
-     email: 'octaviajohn@gmail.com',
-      profilesCreated: 2,
-      image: '',
-      status: 'Active'
-    }
-  ];
+ 
   return (
     <>
       <DashboardLayout>
@@ -285,8 +181,9 @@ const logOut = () => {
                 <p className="mb-2 text-[#afb2bd]">Pages / User Management</p>
                 <p className="font-extrabold text-3xl">User Management</p>
             </div>
-            <div className="bg-white flex items-center p-4 rounded-3xl cursor-pointer" onClick={() => {setShowHide(`${showHide === 'none' ? 'flex' : 'none'}`)}}>
-                <p className="text-black flex justify-end items-center font-semibold text-sm mr-2">Admin</p>
+            <div className="bg-white flex items-center p-3 rounded-3xl cursor-pointer" onClick={() => {setShowHide(`${showHide === 'none' ? 'flex' : 'none'}`)}}>
+            <Image preview={false} alt="admin" src={userImage.src} />
+                <p className="text-black flex justify-end items-center font-semibold text-sm mr-2 ml-2">Admin</p>
                 {showHide === 'none' ?
                 <FaAngleDown />
                  :
@@ -308,9 +205,9 @@ const logOut = () => {
             </div>
         </div>
           <div className="bg-white p-6 rounded-2xl">
-            <div>
-            <p className="font-normal text-2xl mb-8">User (4)</p>
-
+            <div className="sm:flex block justify-between">
+            <p className="font-semibold text-2xl mb-8">All Users ({data?.length})</p>
+                 <Input placeholder="Search by name" prefix={<Image preview={false} src={SearchIcon.src} />} className="h-8 w-60 bg-[#f5f8ff] border border-white"/>
             </div>
             <Row className="w-full">
               <Col span={24}>
@@ -367,8 +264,8 @@ const logOut = () => {
                 centered={true}
                 width='600px'
                 modalType='basicModal'
-                title={'Deactivate User'}
-                text='Are you sure you want to deactivate this User?'
+                title={`${userValue  ? 'Activate' : 'Deactivate'} User` }
+                text={`Are you sure you want to ${userValue  ? 'activate' : 'deactivate'} this User?`}
                 descriptionStyle={{ textAlign: 'center', fontSize: '1.3rem', fontWeight: '400', marginTop: '10px', marginBottom: '20px' }}
                 isModalOpen={deactivateUserModal}
                 isFooter={true}

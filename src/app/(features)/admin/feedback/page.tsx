@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Col, Row, Card, Typography, Image, Input, Button, Modal } from "antd";
-import { feedbackImage, Polygon, totalEarningDashboard,totalUsersDashboard } from "../../../../assets/images";
+import { feedbackImage, Polygon, totalEarningDashboard,totalUsersDashboard, userImage } from "../../../../assets/images";
 import { useForm, Controller } from 'react-hook-form';
 import Colors from "../../../../config/colors";
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -41,11 +41,12 @@ const handleMessageInput = (e:any) => {
 
   const handleOk = () => {
     setLoading(true);
-    setTimeout(() => {
-      alert(messageInput);
-      setLoading(false);
-      setOpen(false);
-    }, 3000);
+    setOpen(false);
+    // setTimeout(() => {
+    //   alert(messageInput);
+    //   setLoading(false);
+    //   setOpen(false);
+    // }, 3000);
   };
 
   const handleCancel = () => {
@@ -63,8 +64,9 @@ const handleMessageInput = (e:any) => {
                 <p className="mb-2 text-[#afb2bd]">Pages / Feedback Management</p>
                 <p className="font-extrabold text-3xl">Feedback Management</p>
             </div>
-            <div className="bg-white flex items-center p-4 rounded-3xl cursor-pointer" onClick={() => {setShowHide(`${showHide === 'none' ? 'flex' : 'none'}`)}}>
-                <p className="text-black flex justify-end items-center font-semibold text-sm mr-2">Admin</p>
+            <div className="bg-white flex items-center p-3 rounded-3xl cursor-pointer" onClick={() => {setShowHide(`${showHide === 'none' ? 'flex' : 'none'}`)}}>
+            <Image preview={false} alt="admin" src={userImage.src} />
+                <p className="text-black flex justify-end items-center font-semibold text-sm mr-2 ml-2">Admin</p>
                 {showHide === 'none' ?
                 <FaAngleDown />
                  :
@@ -86,7 +88,7 @@ const handleMessageInput = (e:any) => {
             </div>
         </div>
         <div className="w-full bg-white p-6 rounded-2xl">
-        <p className="font-normal text-2xl mb-8">Feedbacks (4)</p>
+        <p className="font-semibold text-2xl mb-8">Feedbacks (4)</p>
         <Row className="w-full flex mb-4 sm:mb-0 drop-shadow-[0_0px_10px_rgba(0,0,0,0.25)] rounded-md justify-around" >
             <Col className="bg-white p-4 rounded-xl mb-4" xxl={7} xl={7} lg={7} md={11} sm={11} xs={24}>
                 <div>

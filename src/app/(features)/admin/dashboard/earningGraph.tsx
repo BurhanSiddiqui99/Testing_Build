@@ -14,6 +14,11 @@ const data = [
   { month: "Apr", earnings: 500 },
   { month: "May", earnings: 750 },
   { month: "Jun", earnings: 800 },
+  { month: "Aug", earnings: 800  },
+  { month: "Sep", earnings: 800  },
+  { month: "Oct", earnings: 800  },
+  { month: "Nov", earnings: 800  },
+  { month: "Dec", earnings: 800  },
 ]
 
 export default function EarningsChart() {
@@ -21,7 +26,7 @@ export default function EarningsChart() {
     <Card className='rounded-3xl'
       title={
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>Earnings</span>
+          <span style={{ fontSize: '18px', fontWeight: 'bold' }}>Earnings</span>
           <Select
             defaultValue="monthly"
             style={{ width: 120 }}

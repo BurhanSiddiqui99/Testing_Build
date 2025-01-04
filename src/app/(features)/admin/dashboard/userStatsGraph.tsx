@@ -6,8 +6,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 
 const data = [
   { name: "Android Users", value: 63 },
-  { name: "iOS Users", value: 25 },
-  { name: "Other", value: 12 }, // Added to make total 100%
+  { name: "iOS Users", value: 37 },
 ]
 
 const COLORS = ['#B5179E', '#E0B6E1', '#F3D1F4']
@@ -42,6 +41,7 @@ export default function UserStats() {
               fill="#8884d8"
               paddingAngle={0}
               dataKey="value"
+              className="recharts-pie-sector"
             >
               {data.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -57,8 +57,8 @@ export default function UserStats() {
               style={{
                 width: '12px',
                 height: '12px',
-                borderRadius: '50%',
-                backgroundColor: COLORS[index],
+               
+                
               }}
             />
             <div style={{ display: 'flex', flexDirection: 'column' }}>

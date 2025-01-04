@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Col, Row, Card, Typography, Image, Input, Button } from "antd";
-import { totalEarningDashboard,totalUsersDashboard } from "../../../../assets/images";
+import { totalEarningDashboard,totalUsersDashboard, userImage } from "../../../../assets/images";
 import { useForm, Controller } from 'react-hook-form';
 import Colors from "../../../../config/colors";
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -29,8 +29,9 @@ export default function Dashboard() {
                 <p className="mb-2 text-[#afb2bd]">Pages / Dashboard</p>
                 <p className="font-extrabold text-3xl">Main Dashboard</p>
             </div>
-            <div className="bg-white flex items-center p-4 rounded-3xl cursor-pointer" onClick={() => {setShowHide(`${showHide === 'none' ? 'flex' : 'none'}`)}}>
-                <p className="text-black flex justify-end items-center font-semibold text-sm mr-2">Admin</p>
+            <div className="bg-white flex items-center p-3 rounded-3xl cursor-pointer" onClick={() => {setShowHide(`${showHide === 'none' ? 'flex' : 'none'}`)}}>
+                <Image preview={false} alt="admin" src={userImage.src} />
+                <p className="text-black flex justify-end items-center font-semibold text-sm mr-2 ml-2">Admin</p>
                 {showHide === 'none' ?
                 <FaAngleDown />
                  :
@@ -57,7 +58,7 @@ export default function Dashboard() {
                 <Image preview={false} alt="total users" src={totalUsersDashboard.src} />
                 </div>
                 <div className="ml-4">
-                    <p className="">Total Users</p>
+                    <p className="text-[#afb2bd]">Total Users</p>
                     <p className="font-bold text-2xl">300</p>
                 </div>
             </Col>
@@ -66,7 +67,7 @@ export default function Dashboard() {
                 <Image preview={false} alt="total earnings" src={totalEarningDashboard.src} />
                 </div>
                 <div className="ml-4">
-                    <p className="">Total Earnings</p>
+                    <p className="text-[#afb2bd]">Total Earnings</p>
                     <p className="font-bold text-2xl">$300.00</p>
                 </div>
             </Col>

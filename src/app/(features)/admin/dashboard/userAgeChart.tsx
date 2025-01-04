@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
-import { Card, Select } from "antd"
+import { Card, Select, Tooltip } from "antd"
 
 const data = [
   {
@@ -20,7 +20,7 @@ const data = [
 ]
 
 export default function UserAgeChart() {
-  const [selectedBar, setSelectedBar] = useState(1) // Default to middle bar
+  const [selectedBar, setSelectedBar] = useState<number | null>(null) // Default to middle bar
   const [period, setPeriod] = useState("monthly")
 
   // Custom gradient definition
@@ -45,7 +45,7 @@ export default function UserAgeChart() {
       style={{ width: '100%' }} className="rounded-3xl"
       title={
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: '16px', fontWeight: 500 }}>Users By Age</span>
+          <span style={{ fontSize: '18px', fontWeight: 'bold' }}>Users By Age</span>
           <Select
             defaultValue={period}
             onChange={(value) => setPeriod(value)}
@@ -64,6 +64,8 @@ export default function UserAgeChart() {
             onMouseMove={(state) => {
               if (state?.activeTooltipIndex !== undefined) {
                 setSelectedBar(state.activeTooltipIndex)
+              } else {
+                setSelectedBar(1); // Reset on mouse out
               }
             }}
           >
@@ -87,17 +89,39 @@ export default function UserAgeChart() {
               barSize={60}
             />
             {/* User count label */}
-            {selectedBar === 1 && (
+            {selectedBar === 0 ? (
               <text
-                x="50%"
-                y={20}
+                x="25%"
+                y={200 - data[0].users}
                 textAnchor="middle"
                 fill="#374151"
                 style={{ fontSize: '14px', fontWeight: 500 }}
               >
-                {/* {data[selectedBar].users} users */}
+                {data[selectedBar].users} users
               </text>
-            )}
+            ) : selectedBar === 1 ? (
+              <text
+                x="50%"
+                y={200 - data[1].users}
+                textAnchor="middle"
+                fill="#374151"
+                style={{ fontSize: '14px', fontWeight: 500 }}
+              >
+                {data[selectedBar].users} users
+              </text>
+            ) : selectedBar === 2 ? (
+              (
+                <text
+                  x="70%"
+                  y={200 - data[2].users}
+                  textAnchor="start"
+                  fill="#374151"
+                  style={{ fontSize: '14px', fontWeight: 500 }}
+                >
+                  {data[selectedBar].users} users
+                </text>
+              )
+            ): null}
           </BarChart>
         </ResponsiveContainer>
       </div>

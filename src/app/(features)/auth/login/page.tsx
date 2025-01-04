@@ -9,6 +9,7 @@ import Link from "next/link";
 import {userLogin} from '../../../../config/Schema/Schema';
 import { MdEmail } from "react-icons/md";
 import { redirect } from 'next/navigation'
+import { FaLock } from "react-icons/fa";
 export default function Login() {
     const { Title, Paragraph } = Typography;
     const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -47,7 +48,7 @@ export default function Login() {
               <Title level={2} className="mb-1 mt-2 color-class">
                 Welcome To Admin
               </Title>
-              <Paragraph type="secondary">Enter Your Email</Paragraph>
+              <Paragraph type="secondary">Login to your account</Paragraph>
               <form className="mt-3 w-full" onSubmit={handleSubmit(LoginForm)}>
 
                         <label className="font-semibold flex mb-2">Email</label>
@@ -94,7 +95,7 @@ export default function Login() {
                                     <Col span={24} className="relative">
                                         <Input required type={showPassword ? 'text' : 'password'}
                                             placeholder="Enter Your Password"
-                                            prefix={<Image alt="lock" src={lock.src} className="mr-3" />}
+                                            prefix={<FaLock style={{ color: '#c9c9c9', fontSize: '20px' }} className="mr-3" />}
                                             suffix={
                                             <Image alt="Password" src={showPassword ? passwordViewer.src : passwordseen.src} className="h-3 w-4 cursor-pointer" onClick={() => setShowPassword(!showPassword)} />}
                                             style={{border: fieldState.error?.message ? `1px solid ${Colors.MainColor}` : "1px solid #D7DBE8"}} className="px-2 py-3 rounded-lg w-full outline-0"  {...field} />

@@ -5,6 +5,8 @@ import {
   deleteImage,
   editProfile,
   feedbackImage,
+  passwordseen,
+  passwordViewer,
   totalEarningDashboard,
   totalUsersDashboard,
 } from "../../../../assets/images";
@@ -17,6 +19,7 @@ import DashboardLayout from "../../../../components/Layout/dashboardLayout";
 import BasicModal from "../../../../components/Modal/BasicModal.jsx";
 import { useRouter, usePathname } from "next/navigation";
 import { changePassword } from "../../../../config/Schema/Schema";
+import { FaLock } from "react-icons/fa";
 // import SideBar from '../../../../components/Layout/SideBar'
 // const { Title, Paragraph } = Typography;
 interface PasswordFieldState {
@@ -62,9 +65,16 @@ export default function ChangePassword() {
                     name="old_Password"
                     control={control}
                     render={({ field, fieldState }) => (
-                        <input
+                        <Input
                           required
-                          type={"text"}
+                          type={showPassword?.passwordField1 ? "text" : "password"}
+                          prefix={<FaLock style={{ color: '#c9c9c9', fontSize: '20px' }} className="mr-3" />}
+                        suffix={
+                            <Image alt="Password" preview={false}
+                            className=" h-4 w-4 cursor-pointer"
+                            src={showPassword?.passwordField1? passwordViewer.src : passwordseen.src}
+                            onClick={() => setShowPassword({...showPassword,passwordField1: !showPassword.passwordField1,})}/>
+                        }
                           placeholder="Enter Old Password"
                           className="mt-2 w-full px-2 py-3 rounded-lg outline-0 bg-[#fafafa] border border-[#c9c9c9]"
                           {...field}
@@ -80,9 +90,16 @@ export default function ChangePassword() {
                     name="Password"
                     control={control}
                     render={({ field, fieldState }) => (
-                      <input
+                      <Input
                           required
-                          type={"text"}
+                          type={showPassword?.passwordField2 ? "text" : "password"}
+                          prefix={<FaLock style={{ color: '#c9c9c9', fontSize: '20px' }} className="mr-3" />}
+                        suffix={
+                            <Image alt="Password" preview={false}
+                            className=" h-4 w-4 cursor-pointer"
+                            src={showPassword?.passwordField2? passwordViewer.src : passwordseen.src}
+                            onClick={() => setShowPassword({...showPassword,passwordField2: !showPassword.passwordField2,})}/>
+                        }
                           placeholder="Enter New Password"
                           className="mt-2 w-full px-2 py-3 rounded-lg outline-0 bg-[#fafafa] border border-[#c9c9c9]"
                           {...field}
@@ -98,9 +115,16 @@ export default function ChangePassword() {
                     name="confirmPassword"
                     control={control}
                     render={({ field, fieldState }) => (
-                        <input
+                        <Input
                           required
-                          type={"text"}
+                          type={showPassword?.passwordField3 ? "text" : "password"}
+                          prefix={<FaLock style={{ color: '#c9c9c9', fontSize: '20px' }} className="mr-3" />}
+                        suffix={
+                            <Image alt="Password" preview={false}
+                            className=" h-4 w-4 cursor-pointer"
+                            src={showPassword?.passwordField3? passwordViewer.src : passwordseen.src}
+                            onClick={() => setShowPassword({...showPassword,passwordField3: !showPassword.passwordField3,})}/>
+                        }
                           placeholder="Enter Confirm Password"
                           className="mt-2 w-full px-2 py-3 rounded-lg outline-0 bg-[#fafafa] border border-[#c9c9c9]"
                           {...field}
