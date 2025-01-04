@@ -102,6 +102,48 @@ input::-webkit-inner-spin-button {
   justify-content: center !important;
 }
 
+.ant-modal-body{
+  font-size: 20px !important;
+  text-align: center !important;
+  font-weight: 400 !important;
+}
+
+.ant-input-affix-wrapper:focus {
+  border-color: #8052a1 !important;
+  box-shadow: none !important;
+}
+
+
+
+.ant-input-affix-wrapper:link {
+  border-color: #8052a1 !important;
+}
+
+.ant-input-affix-wrapper:visited {
+  border-color: #8052a1 !important;
+}
+
+.ant-input-affix-wrapper:hover {
+  border-color: #8052a1 !important;
+}
+
+.ant-input-affix-wrapper:active {
+  border-color: #8052a1 !important;
+}
+
+.my-textarea{
+  font-size: 16px !important;
+  resize: none;
+}
+.recharts-pie-sector {
+  outline: none; /* Removes the black border */
+}
+
+.color-class{
+  color: #2a3573 !important;
+  font-weight: bold !important;
+}
+
 .ant-modal-title{
   /* font-family: Gilroy-Bold; */
 font-size: 28px !important;
