@@ -1,9 +1,6 @@
 import React from "react";
 import { Col, Row, Card, Typography, Image, Input, Button, Modal } from "antd";
 import { activeUser, ageImage, backButton, child1, completeQuiz, feedbackImage, totalEarningDashboard,totalUsersDashboard, userDetail, userImage } from "../../../../../assets/images";
-import { useForm, Controller } from 'react-hook-form';
-import Colors from "../../../../../config/colors";
-import {yupResolver} from '@hookform/resolvers/yup';
 import Link from "next/link";
 import DashboardLayout from '../../../../../components/Layout/dashboardLayout';
 import {data} from "../data"; 
@@ -12,43 +9,7 @@ const { Title, Paragraph } = Typography;
 export default function userDetails({params}: any) {
   console.log({params})
   console.log(data,"DAtttttttttttt")
-  // const router = useRouter();
-  // const [logoutModal, setLogoutModal] = useState(false);
-//   const logoutModalViewer = () => {
-//     setLogoutModal(true);
-// };
-
-const logOut = () => {
-    // localStorage.removeItem('authToken');
-    // router.push('/auth/login');
-};
-// const [loading, setLoading] = useState(false);
-// const [open, setOpen] = useState(false);
-// const [messageInput, setMessageInput] = useState('');
-// eslint-disable-next-line
-// const handleMessageInput = (e:any) => {
-//   setMessageInput(e.target.value);
-// }
-
-// const replyModalData = () => {
   
-// }
-  // const showModal = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleOk = () => {
-  //   setLoading(true);
-  //   setTimeout(() => {
-  //     alert(messageInput);
-  //     setLoading(false);
-  //     setOpen(false);
-  //   }, 3000);
-  // };
-
-  // const handleCancel = () => {
-  //   setOpen(false);
-  // };
 
   return (
     <>

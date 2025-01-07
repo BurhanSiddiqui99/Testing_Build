@@ -97,7 +97,7 @@ export default function Login() {
                                             placeholder="Enter Your Password"
                                             prefix={<FaLock style={{ color: '#c9c9c9', fontSize: '20px' }} className="mr-3" />}
                                             suffix={
-                                            <Image preview={false} alt="Password" src={showPassword ? passwordViewer.src : passwordseen.src} className="h-3 w-4 cursor-pointer" onClick={() => setShowPassword(!showPassword)} />}
+                                            <Image alt="Password" src={showPassword ? passwordViewer.src : passwordseen.src} className="h-3 w-4 cursor-pointer" onClick={() => setShowPassword(!showPassword)} />}
                                             style={{border: fieldState.error?.message ? `1px solid ${Colors.MainColor}` : "1px solid #D7DBE8"}} className="px-2 py-3 rounded-lg w-full outline-0"  {...field} />
                                         {fieldState.error && (
                                             <span className="text-[#ed1a72] flex">{fieldState.error.message}</span>

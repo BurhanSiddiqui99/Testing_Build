@@ -2,18 +2,43 @@
 
 import React from 'react'
 import { Card, Select } from 'antd'
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
+import { PieChart, Pie, Cell, ResponsiveContainer,Tooltip,TooltipProps  } from 'recharts'
+
+interface DataItem {
+  name: string;
+  value: number;
+  color?: string;
+}
 
 const data = [
   { name: "Android Users", value: 63 },
   { name: "iOS Users", value: 37 },
 ]
 
-const COLORS = ['#B5179E', '#E0B6E1', '#F3D1F4']
+const COLORS = ['#B5179E', '#E0B6E1']
 
 export default function UserStats() {
   const { Option } = Select
 
+  const CustomTooltip: React.FC<TooltipProps<number, string>> = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      const { name, value } = payload[0].payload as DataItem;
+      const color = payload[0].payload.color;
+  
+      return (
+        <div
+          style={{
+            border: `2px solid ${color}`,
+            borderRadius: '5px',
+            padding: '10px',
+            backgroundColor: '#fff',
+          }}
+        >
+          <p style={{ margin: 0 }}>{name}: {value}</p>
+        </div>
+      );
+    } return null;
+  };
   return (
     <Card className='rounded-3xl'
       title={
@@ -47,6 +72,7 @@ export default function UserStats() {
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
+            <Tooltip content={<CustomTooltip />}/>
           </PieChart>
         </ResponsiveContainer>
       </div>
@@ -62,7 +88,16 @@ export default function UserStats() {
               }}
             />
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span style={{ fontSize: '14px', color: '#666' }}>{entry.name}</span>
+              <span style={{ fontSize: '14px', color: '#666' }}><span
+              style={{
+                display: "inline-block",
+                width: 8,
+                height: 8,
+                borderRadius: "50%",
+                backgroundColor: COLORS[index % COLORS.length],
+                marginRight: 5,
+              }}
+            ></span>{entry.name}</span>
               <span style={{ fontSize: '18px', fontWeight: 'bold' }}>{entry.value}%</span>
             </div>
           </div>

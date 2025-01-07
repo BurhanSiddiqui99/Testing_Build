@@ -15,11 +15,11 @@ import { useForm, Controller } from "react-hook-form";
 // import Link from "next/link";
 import DashboardLayout from "../../../../components/Layout/dashboardLayout";
 // import BasicModal from "../../../../components/Modal/BasicModal.jsx";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, redirect } from "next/navigation";
 // import SideBar from '../../../../components/Layout/SideBar'
 export default function EditProfile() {
   const { Title, Paragraph } = Typography;
-  const { handleSubmit, control, reset } = useForm({
+  const { handleSubmit, control, reset, formState } = useForm({
     mode: "onChange",
   });
   const router = useRouter();
@@ -44,6 +44,13 @@ export default function EditProfile() {
     setImageURL(null);
     setFile(null);
   };
+
+  const editProfileForm = async (data: any) => {
+    reset();
+    setImageURL(null);
+    setFile(null);
+    // redirect("/admin/editprofile");
+  }
   return (
     <>
       <DashboardLayout>
@@ -57,7 +64,7 @@ export default function EditProfile() {
           </div>
           <div className="w-full bg-white p-6 rounded-2xl">
             <p className="font-semibold text-2xl mb-8 text-[#4a4a4a]">Edit Profile</p>
-            <form className="">
+            <form className="" onSubmit={handleSubmit(editProfileForm)}>
               <div className="upload-photo-container flex justify-center">
                 <label htmlFor="file">
                   <input
@@ -97,10 +104,13 @@ export default function EditProfile() {
                     name="firstName"
                     control={control}
                     render={({ field, fieldState }) => (
-                        <input
+                        <Input
                           required
                           type={"text"}
                           defaultValue={""}
+                          onInput={(e) => {
+                            (e.target as HTMLInputElement).value = (e.target as HTMLInputElement).value.replace(/[0-9]/g, ""); // Removes numeric characters
+                          }}
                           className="mt-2 w-full px-2 py-3 rounded-lg outline-0 bg-[#fafafa] border border-[#c9c9c9]"
                           {...field}
                         />
@@ -115,10 +125,13 @@ export default function EditProfile() {
                     name="lastName"
                     control={control}
                     render={({ field, fieldState }) => (
-                      <input
+                      <Input
                           required
                           type={"text"}
                           defaultValue={""}
+                          onInput={(e) => {
+                            (e.target as HTMLInputElement).value = (e.target as HTMLInputElement).value.replace(/[0-9]/g, ""); // Removes numeric characters
+                          }}
                           className="mt-2 w-full px-2 py-3 rounded-lg outline-0 bg-[#fafafa] border border-[#c9c9c9]"
                           {...field}
                         />

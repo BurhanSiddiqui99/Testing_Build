@@ -37,6 +37,7 @@ export default function ChangePassword() {
       const {
         handleSubmit,
         control,
+        reset,
         formState: { errors },
       } = useForm({
         mode: "onChange",
@@ -44,6 +45,12 @@ export default function ChangePassword() {
       });
   const router = useRouter();
 
+  const changePasswordForm = async (data : any) => {
+    reset();
+    // if(data?.password && data?.confirm_password && data?.password === data?.confirm_password){
+    //     redirect('/auth/login')
+    // }
+}
   return (
     <>
       <DashboardLayout>
@@ -56,7 +63,7 @@ export default function ChangePassword() {
           </div>
           <div className="w-full bg-white p-6 rounded-2xl">
             <p className="font-semibold text-2xl mb-8 text-[#4a4a4a]">Change Password</p>
-            <form className="">
+            <form className="" onSubmit={handleSubmit(changePasswordForm)}>
               
               <Row gutter={4} className="flex justify-center mt-4">
                 <Col xxl={8} xl={10} lg={12} md={16} sm={24} xs={24}>
@@ -65,6 +72,7 @@ export default function ChangePassword() {
                     name="old_Password"
                     control={control}
                     render={({ field, fieldState }) => (
+                        <Col> 
                         <Input
                           required
                           type={showPassword?.passwordField1 ? "text" : "password"}
@@ -76,9 +84,18 @@ export default function ChangePassword() {
                             onClick={() => setShowPassword({...showPassword,passwordField1: !showPassword.passwordField1,})}/>
                         }
                           placeholder="Enter Old Password"
+                          style={{border: fieldState.error?.message? `1px solid ${Colors.MainColor}` : "1px solid #D7DBE8",}}
                           className="mt-2 w-full px-2 py-3 rounded-lg outline-0 bg-[#fafafa] border border-[#c9c9c9]"
                           {...field}
+                          
                         />
+                        {fieldState.error && (
+                        <span className="text-[#ed1a72] flex">
+                          {fieldState.error.message}
+                        </span>
+                      )}
+                        </Col>
+                        
                     )}
                   />
                 </Col>
@@ -90,6 +107,7 @@ export default function ChangePassword() {
                     name="Password"
                     control={control}
                     render={({ field, fieldState }) => (
+                      <Col>
                       <Input
                           required
                           type={showPassword?.passwordField2 ? "text" : "password"}
@@ -101,9 +119,16 @@ export default function ChangePassword() {
                             onClick={() => setShowPassword({...showPassword,passwordField2: !showPassword.passwordField2,})}/>
                         }
                           placeholder="Enter New Password"
+                          style={{border: fieldState.error?.message? `1px solid ${Colors.MainColor}` : "1px solid #D7DBE8",}}
                           className="mt-2 w-full px-2 py-3 rounded-lg outline-0 bg-[#fafafa] border border-[#c9c9c9]"
                           {...field}
                         />
+                      {fieldState.error && (
+                        <span className="text-[#ed1a72] flex">
+                          {fieldState.error.message}
+                        </span>
+                      )}
+                        </Col>
                     )}
                   />
                 </Col>
@@ -115,6 +140,7 @@ export default function ChangePassword() {
                     name="confirmPassword"
                     control={control}
                     render={({ field, fieldState }) => (
+                      <Col>
                         <Input
                           required
                           type={showPassword?.passwordField3 ? "text" : "password"}
@@ -125,10 +151,17 @@ export default function ChangePassword() {
                             src={showPassword?.passwordField3? passwordViewer.src : passwordseen.src}
                             onClick={() => setShowPassword({...showPassword,passwordField3: !showPassword.passwordField3,})}/>
                         }
+                        style={{border: fieldState.error?.message? `1px solid ${Colors.MainColor}` : "1px solid #D7DBE8",}}
                           placeholder="Enter Confirm Password"
                           className="mt-2 w-full px-2 py-3 rounded-lg outline-0 bg-[#fafafa] border border-[#c9c9c9]"
                           {...field}
                         />
+                        {fieldState.error && (
+                        <span className="text-[#ed1a72] flex">
+                          {fieldState.error.message}
+                        </span>
+                      )}
+                        </Col>
                     )}
                   />
                 </Col>
