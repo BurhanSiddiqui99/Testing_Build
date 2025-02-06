@@ -12,19 +12,34 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  { month: "Jan", android: 20, ios: 25 },
-  { month: "Feb", android: 30, ios: 45 },
-  { month: "Mar", android: 32, ios: 48 },
-  { month: "Apr", android: 64, ios: 52 },
-  { month: "May", android: 45, ios: 55 },
-  { month: "Jun", android: 100, ios: 42 },
-  { month: "Jul", android: 58, ios: 48 },
-  { month: "Aug", android: 45, ios: 60 },
-  { month: "Sep", android: 45, ios: 60 },
-  { month: "Oct", android: 45, ios: 60 },
-  { month: "Nov", android: 45, ios: 60 },
-  { month: "Dec", android: 45, ios: 60 },
+const monthly = [
+  { month: "Jan", subscription: 20 },
+  { month: "Feb", subscription: 30 },
+  { month: "Mar", subscription: 32 },
+  { month: "Apr", subscription: 64 },
+  { month: "May", subscription: 45 },
+  { month: "Jun", subscription: 100 },
+  { month: "Jul", subscription: 58 },
+  { month: "Aug", subscription: 45 },
+  { month: "Sep", subscription: 45 },
+  { month: "Oct", subscription: 45 },
+  { month: "Nov", subscription: 45 },
+  { month: "Dec", subscription: 45 },
+];
+
+const yearly = [
+  { month: "Jan", subscription: 20, },
+  { month: "Feb", subscription: 45 },
+  { month: "Mar", subscription: 48 },
+  { month: "Apr", subscription: 52 },
+  { month: "May", subscription: 55 },
+  { month: "Jun", subscription: 42 },
+  { month: "Jul", subscription: 48 },
+  { month: "Aug", subscription: 60 },
+  { month: "Sep", subscription: 60 },
+  { month: "Oct", subscription: 60 },
+  { month: "Nov", subscription: 102 },
+  { month: "Dec", subscription: 60 },
 ];
 
 // eslint-disable-next-line
@@ -49,6 +64,7 @@ const UserAnalytics: React.FC = () => {
   const { Title } = Typography;
   const { Option } = Select;
   const [timeframe, setTimeframe] = useState<string>("monthly");
+  const [selectSubs, setSelectSubs] = useState<boolean>(true);
 
   return (
     <Card
@@ -61,9 +77,9 @@ const UserAnalytics: React.FC = () => {
         }}
         className="md:flex block justify-between items-center"
       >
-        <span style={{ fontSize: '18px', fontWeight: 'bold' }}>Apple And Google Users</span>
+        <span style={{ fontSize: '20px', fontWeight: 'bold' }}>Subscriptions</span>
         <Space>
-          <span>
+          <span onClick={() => setSelectSubs(true)} className="cursor-pointer">
             <span
               style={{
                 display: "inline-block",
@@ -74,9 +90,9 @@ const UserAnalytics: React.FC = () => {
                 marginRight: 5,
               }}
             ></span>
-            Android Users
+            Monthly
           </span>
-          <span>
+          <span onClick={() => setSelectSubs(false)} className="cursor-pointer">
             <span
               style={{
                 display: "inline-block",
@@ -87,16 +103,16 @@ const UserAnalytics: React.FC = () => {
                 marginRight: 5,
               }}
             ></span>
-            iOS Users
+            Yearly
           </span>
           <Select
             defaultValue={timeframe}
             style={{ width: 120 }}
             onChange={(value) => setTimeframe(value)}
           >
-            <Option value="daily" key="daily">
+            {/* <Option value="daily" key="daily">
               Daily
-            </Option>
+            </Option> */}
             <Option value="weekly" key="weekly">
               Weekly
             </Option>
@@ -109,7 +125,7 @@ const UserAnalytics: React.FC = () => {
       <div style={{ width: "100%", height: 400 }}>
         <ResponsiveContainer>
           <LineChart
-            data={data}
+            data={selectSubs ? monthly : yearly}
             margin={{
               top: 5,
               right: 30,
@@ -127,29 +143,30 @@ const UserAnalytics: React.FC = () => {
             <YAxis
               axisLine={false}
               tickLine={false}
-              tickFormatter={(value) => `${value}%`}
+              tickFormatter={(value) => `${value}`}
             />
             <Tooltip content={<CustomTooltip />} />
+            {selectSubs ? (
             <Line
               type="monotone"
-              dataKey="android"
+              dataKey="subscription"
               stroke="#ff4d4f"
               strokeWidth={2}
               dot={{ fill: "#ff4d4f", strokeWidth: 2 }}
               activeDot={{ r: 8 }}
               name="Android"
-              key="android"
-            />
+              key="subscription"
+            />) : (
             <Line
               type="monotone"
-              dataKey="ios"
+              dataKey="subscription"
               stroke="#1890ff"
               strokeWidth={2}
               dot={{ fill: "#1890ff", strokeWidth: 2 }}
               activeDot={{ r: 8 }}
               name="iOS"
-              key="ios"
-            />
+              key="subscription"
+            />)}
           </LineChart>
         </ResponsiveContainer>
       </div>

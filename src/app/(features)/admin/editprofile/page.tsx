@@ -1,31 +1,35 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Col, Row, Card, Typography, Image, Input, Avatar } from "antd";
+import { Col, Row, Image, Input, Avatar, Spin } from "antd";
 import {
   deleteImage,
   editProfile,
-  feedbackImage,
-  totalEarningDashboard,
-  totalUsersDashboard,
 } from "../../../../assets/images";
 import "../../../globals.css";
 import { useForm, Controller } from "react-hook-form";
-// import Colors from "../../../../config/colors";
-// import { yupResolver } from "@hookform/resolvers/yup";
-// import Link from "next/link";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "../../../store/index";
 import DashboardLayout from "../../../../components/Layout/dashboardLayout";
-// import BasicModal from "../../../../components/Modal/BasicModal.jsx";
-import { useRouter, usePathname, redirect } from "next/navigation";
-// import SideBar from '../../../../components/Layout/SideBar'
+import { mediaImageNull, uploadMedia, userProfileUpdate } from "../../../store/authSlice";
+import { toast } from "react-toastify";
 export default function EditProfile() {
-  const { Title, Paragraph } = Typography;
   const { handleSubmit, control, reset, formState } = useForm({
     mode: "onChange",
   });
-  const router = useRouter();
-
-  const [imageURL, setImageURL] = useState<string | null>(null);
+  const dispatch: AppDispatch = useDispatch();
+  const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+  const { user, userList, loader, loaderMedia, imageID } = useAppSelector((state) => state.login);
+  const [imageURL, setImageURL] = useState<string | null>(user?.media[0]?.url);
   const [file, setFile] = useState<File | null>(null);
+
+  useEffect(() => {
+    if (file) {
+      const formData = new FormData();
+      formData.append('media', file);
+      const payload = formData
+      dispatch(uploadMedia({payload}))
+    }
+  },[file])
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const file = e.target.files?.[0];
@@ -41,16 +45,35 @@ export default function EditProfile() {
     }
   };
   const deleteImgae = () => {
+    dispatch(mediaImageNull())
     setImageURL(null);
     setFile(null);
   };
+  
 
   const editProfileForm = async (data: any) => {
-    reset();
+    const firstName = data?.firstName ? data?.firstName : user?.firstName;
+    const lastName = data?.lastName ? data?.lastName : user?.lastName;
+    const mediaId = imageID
+    const payload = {firstName, lastName, ...(mediaId !== null && mediaId !== undefined ? { mediaId } : null)}
+    dispatch(userProfileUpdate({payload, cb: (data) => {
+      setImageURL(data?.data?.media[0]?.url);
+      toast.success("Edit Profile Successfully", {position: "top-center",});
+    }}))
+    dispatch(mediaImageNull())
     setImageURL(null);
     setFile(null);
-    // redirect("/admin/editprofile");
   }
+
+
+  if (loader) {
+    return(
+      <div className="fixed inset-0 flex items-center justify-center bg-white">
+        <Spin size="large" />
+      </div>
+    )
+  }
+
   return (
     <>
       <DashboardLayout>
@@ -107,7 +130,7 @@ export default function EditProfile() {
                         <Input
                           required
                           type={"text"}
-                          defaultValue={""}
+                          defaultValue={user?.firstName}
                           onInput={(e) => {
                             (e.target as HTMLInputElement).value = (e.target as HTMLInputElement).value.replace(/[0-9]/g, ""); // Removes numeric characters
                           }}
@@ -128,7 +151,7 @@ export default function EditProfile() {
                       <Input
                           required
                           type={"text"}
-                          defaultValue={""}
+                          defaultValue={user?.lastName}
                           onInput={(e) => {
                             (e.target as HTMLInputElement).value = (e.target as HTMLInputElement).value.replace(/[0-9]/g, ""); // Removes numeric characters
                           }}
@@ -149,7 +172,7 @@ export default function EditProfile() {
                         <input
                           required
                           type={"email"}
-                          value={"johndoe@gmail.com"}
+                          value={user?.email}
                           disabled
                           className="mt-2 w-full px-2 py-3 rounded-lg outline-0 bg-[#fafafa] border border-[#c9c9c9] text-[#c9c9c9]"
                           // {...field}
@@ -160,7 +183,8 @@ export default function EditProfile() {
               </Row>
               <Row gutter={4} className="flex justify-center mt-4">
                 <Col xxl={8} xl={10} lg={12} md={16} sm={24} xs={24}>
-                <button className="bg-gradient-to-r from-[#8052A0] to-[#55A0D7] w-full py-3 mt-4 rounded-lg text-white font-semibold"> Confirm </button>
+                {!loaderMedia &&
+                <button className="bg-gradient-to-r from-[#8052A0] to-[#55A0D7] w-full py-3 mt-4 rounded-lg text-white font-semibold"> Confirm </button>}
                 </Col>
               </Row>
             </form>

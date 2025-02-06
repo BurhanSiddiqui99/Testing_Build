@@ -98,8 +98,9 @@ input::-webkit-inner-spin-button {
 
 
 .my-own-moodal .ant-modal-body{
-  display: flex !important;
-  justify-content: center !important;
+  min-height: 300px;
+  max-height: calc(48vh - 96px);
+  overflow: auto;
 }
 
 .ant-modal-body{
@@ -113,6 +114,9 @@ input::-webkit-inner-spin-button {
   box-shadow: none !important;
 }
 
+.ant-select-selector {
+  border-color: #8052a1 !important;
+}
 
 
 .ant-input-affix-wrapper:link {
@@ -160,5 +164,10 @@ line-height: 34.66px !important;
   padding-inline: 30px !important;
   margin-inline: 0px !important;
 }
+
+.ant-spin-dot{
+  color: #2a3573 !important;
+}
+
 
 

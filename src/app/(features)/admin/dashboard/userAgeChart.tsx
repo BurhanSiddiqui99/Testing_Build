@@ -4,22 +4,38 @@ import { useState } from "react"
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import { Card, Select, Tooltip } from "antd"
 
-const data = [
-  {
-    age: "3-6",
-    users: 125,
-  },
-  {
-    age: "7-10",
-    users: 168,
-  },
-  {
-    age: "10+",
-    users: 120,
-  },
-]
+// const data = [
+//   {
+//     age: "3-6",
+//     users: 125,
+//   },
+//   {
+//     age: "7-10",
+//     users: 168,
+//   },
+//   {
+//     age: "10+",
+//     users: 120,
+//   },
+// ]
 
-export default function UserAgeChart() {
+interface UserAgeProps{
+  data: {
+    age: string;
+    users: number;
+  } 
+}
+
+export default function UserAgeChart({ data }: {
+  data: any;
+}): React.JSX.Element {
+  console.log("ffffffffffffff",data);
+  const dataArray = data && Object.entries(data)?.map(([age, users]) => ({
+    age,
+    users,
+  }));
+  console.log("ffffffffffffff",dataArray);
+  
   const [selectedBar, setSelectedBar] = useState<number | null>(null) // Default to middle bar
   const [period, setPeriod] = useState("monthly")
 
@@ -33,12 +49,12 @@ export default function UserAgeChart() {
     </defs>
   )
 
-  const periodOptions = [
-    { value: 'daily', label: 'Daily' },
-    { value: 'weekly', label: 'Weekly' },
-    { value: 'monthly', label: 'Monthly' },
-    { value: 'yearly', label: 'Yearly' },
-  ]
+  // const periodOptions = [
+  //   { value: 'daily', label: 'Daily' },
+  //   { value: 'weekly', label: 'Weekly' },
+  //   { value: 'monthly', label: 'Monthly' },
+  //   { value: 'yearly', label: 'Yearly' },
+  // ]
 
   return (
     <Card 
@@ -46,20 +62,20 @@ export default function UserAgeChart() {
       title={
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ fontSize: '18px', fontWeight: 'bold' }}>Users By Age</span>
-          <Select
+          {/* <Select
             defaultValue={period}
             onChange={(value) => setPeriod(value)}
             style={{ width: 110 }}
             options={periodOptions}
             size="small"
-          />
+          /> */}
         </div>
       }
     >
       <div style={{ height: '300px' }}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
-            data={data}
+            data={dataArray}
             margin={{ top: 30, right: 10, left: -20, bottom: 0 }}
             onMouseMove={(state) => {
               if (state?.activeTooltipIndex !== undefined) {
@@ -80,7 +96,7 @@ export default function UserAgeChart() {
               axisLine={false}
               tickLine={false}
               tick={{ fill: '#6B7280' }}
-              domain={[0, 200]}
+              domain={[0, dataArray && Math.ceil(Math.max(...dataArray.map((item: any) => Number(item.users))) / 10) * 10]}
             />
             <Bar
               dataKey="users"
@@ -92,33 +108,33 @@ export default function UserAgeChart() {
             {selectedBar === 0 ? (
               <text
                 x="25%"
-                y={200 - data[0].users}
+                y={(Math.ceil(Math.max(...dataArray.map((item: any) => Number(item.users))) / 10) * 10)}
                 textAnchor="middle"
                 fill="#374151"
                 style={{ fontSize: '14px', fontWeight: 500 }}
               >
-                {data[selectedBar].users} users
+                {dataArray[selectedBar].users} users
               </text>
             ) : selectedBar === 1 ? (
               <text
                 x="50%"
-                y={200 - data[1].users}
+                y={(Math.ceil(Math.max(...dataArray.map((item: any) => Number(item.users))) / 10) * 10)}
                 textAnchor="middle"
                 fill="#374151"
                 style={{ fontSize: '14px', fontWeight: 500 }}
               >
-                {data[selectedBar].users} users
+                {dataArray[selectedBar].users} users
               </text>
             ) : selectedBar === 2 ? (
               (
                 <text
                   x="70%"
-                  y={200 - data[2].users}
+                  y={(Math.ceil(Math.max(...dataArray.map((item: any) => Number(item.users))) / 10) * 10)}
                   textAnchor="start"
                   fill="#374151"
                   style={{ fontSize: '14px', fontWeight: 500 }}
                 >
-                  {data[selectedBar].users} users
+                  {dataArray[selectedBar].users} users
                 </text>
               )
             ): null}
@@ -129,3 +145,4 @@ export default function UserAgeChart() {
   )
 }
 
+// export default UserAgeChart;

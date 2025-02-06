@@ -7,6 +7,8 @@ import { useRouter, usePathname } from 'next/navigation';
 // import Image from 'next/image';
 import BasicModal from '../../components/Modal/BasicModal'; // Update path based on your Next.js structure
 import { sidebarLogo, Logo } from '../../assets/images';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../app/store/authSlice';
 
 // ICONS IMPORT
 import { FaUser } from "react-icons/fa";
@@ -16,6 +18,7 @@ import Colors from '../../config/colors'; // Update path based on your Next.js s
 import { LuNotebookPen } from 'react-icons/lu';
 
 const SideBar = () => {
+    const dispatch = useDispatch();
     const { Sider } = Layout;
     const [collapsed, setCollapsed] = useState(false);
     const [logoutModal, setLogoutModal] = useState(false);
@@ -27,7 +30,7 @@ const SideBar = () => {
     };
 
     const logOut = () => {
-        // localStorage.removeItem('authToken');
+        dispatch(logout());
         router.push('/auth/login');
     };
 

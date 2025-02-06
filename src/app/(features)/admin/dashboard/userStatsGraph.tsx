@@ -10,15 +10,34 @@ interface DataItem {
   color?: string;
 }
 
-const data = [
-  { name: "Android Users", value: 63 },
-  { name: "iOS Users", value: 37 },
-]
+// const data = [
+//   { name: "Android Users", value: 63 },
+//   { name: "iOS Users", value: 37 },
+// ]
 
 const COLORS = ['#B5179E', '#E0B6E1']
 
-export default function UserStats() {
-  const { Option } = Select
+export default function UserStats({ data }: {
+  data: any;
+}): React.JSX.Element {
+
+  // console.log(data,"hhhhhhhhhhhhhhhhhhh");
+
+  const formattedData = [
+    {
+      name: 'Android Users',
+      value: data && data?.android?.percentage,
+      count: data && data?.android?.count,
+    },
+    {
+      name: 'iOS Users',
+      value: data && data?.IOS?.percentage,
+      count: data && data?.IOS?.count,
+    },
+  ]
+
+  
+  // const { Option } = Select
 
   const CustomTooltip: React.FC<TooltipProps<number, string>> = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -34,7 +53,7 @@ export default function UserStats() {
             backgroundColor: '#fff',
           }}
         >
-          <p style={{ margin: 0 }}>{name}: {value}</p>
+          <p style={{ margin: 0 }}>{name}: {parseFloat(value.toFixed(1))}%</p>
         </div>
       );
     } return null;
@@ -44,12 +63,12 @@ export default function UserStats() {
       title={
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span style={{ fontSize: '18px', fontWeight: 'bold' }}>Users</span>
-          <Select defaultValue="monthly" style={{ width: 100 }}>
+          {/* <Select defaultValue="monthly" style={{ width: 100 }}>
             <Option value="daily">Daily</Option>
             <Option value="weekly">Weekly</Option>
             <Option value="monthly">Monthly</Option>
             <Option value="yearly">Yearly</Option>
-          </Select>
+          </Select> */}
         </div>
       }
       style={{ width: '100%' }}
@@ -58,7 +77,7 @@ export default function UserStats() {
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
-              data={data}
+              data={formattedData}
               cx="50%"
               cy="50%"
               innerRadius={0}
@@ -68,7 +87,7 @@ export default function UserStats() {
               dataKey="value"
               className="recharts-pie-sector"
             >
-              {data.map((entry, index) => (
+              {formattedData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
@@ -77,7 +96,7 @@ export default function UserStats() {
         </ResponsiveContainer>
       </div>
       <div style={{ marginTop: '20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-        {data.slice(0, 2).map((entry, index) => (
+        {formattedData.slice(0, 2).map((entry, index) => (
           <div key={entry.name} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div
               style={{
@@ -98,7 +117,7 @@ export default function UserStats() {
                 marginRight: 5,
               }}
             ></span>{entry.name}</span>
-              <span style={{ fontSize: '18px', fontWeight: 'bold' }}>{entry.value}%</span>
+              <span style={{ fontSize: '18px', fontWeight: 'bold' }}>{entry.count}</span>
             </div>
           </div>
         ))}

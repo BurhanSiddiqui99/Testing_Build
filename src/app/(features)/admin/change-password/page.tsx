@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Col, Row, Card, Typography, Image, Input, Avatar } from "antd";
+import { Col, Row, Card, Typography, Image, Input, Avatar, Spin } from "antd";
 import {
   deleteImage,
   editProfile,
@@ -20,6 +20,10 @@ import BasicModal from "../../../../components/Modal/BasicModal.jsx";
 import { useRouter, usePathname } from "next/navigation";
 import { changePassword } from "../../../../config/Schema/Schema";
 import { FaLock } from "react-icons/fa";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import type { RootState, AppDispatch } from "../../../store/index";
+import { updateNewPassword } from "@/store/authSlice";
+import { toast } from "react-toastify";
 // import SideBar from '../../../../components/Layout/SideBar'
 // const { Title, Paragraph } = Typography;
 interface PasswordFieldState {
@@ -28,6 +32,9 @@ interface PasswordFieldState {
     passwordField3: boolean;
   }
 export default function ChangePassword() {
+  const dispatch: AppDispatch = useDispatch();
+  const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+  const { loader } = useAppSelector((state) => state.login);
     const [showPassword, setShowPassword] = useState<PasswordFieldState>({
         passwordField1: false,
         passwordField2: false,
@@ -46,10 +53,19 @@ export default function ChangePassword() {
   const router = useRouter();
 
   const changePasswordForm = async (data : any) => {
+    const payload = {currentPassword: data?.old_Password, newPassword: data?.Password}
+    dispatch(updateNewPassword({payload, 
+      cb: () => {toast.success("Password Update Successfully", {position: "top-center",});},
+    }))
     reset();
-    // if(data?.password && data?.confirm_password && data?.password === data?.confirm_password){
-    //     redirect('/auth/login')
-    // }
+}
+
+if (loader) {
+  return(
+    <div className="fixed inset-0 flex items-center justify-center bg-white">
+      <Spin size="large" />
+    </div>
+  )
 }
   return (
     <>
